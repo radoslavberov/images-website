@@ -5,21 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Image extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['content', 'user_id', 'image_id'];
+    protected $fillable = ['title', 'description', 'user_id', 'file_path'];
 
-    // Relationship with User
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Relationship with Photo
-    public function image()
+
+    public function comments()
     {
-        return $this->belongsTo(Image::class, 'comment_id');
+        return $this->hasMany(Comment::class, 'image_id');
     }
 }

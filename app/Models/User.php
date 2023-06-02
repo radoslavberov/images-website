@@ -17,11 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['name', 'email', 'password', 'is_admin', 'image_count'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,4 +38,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
+
+    // Relationship with Comments
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'user_id');
+    }
+    public function isAdmin()
+    {
+        return $this->is_admin;
+    }
 }
